@@ -1,0 +1,37 @@
+# IDE / Editor config
+.git
+.idea/
+.vscode/
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv*/
+env*/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.cache/
+htmlcov/
+
+# Docker-specific
+Dockerfile
+docker-compose.yml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs and misc
+*.log
+*.tmp
+*.bak
+*.swp

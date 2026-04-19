@@ -1,0 +1,14 @@
+# This file defines the requirements for a productive project deployment.
+# It should not contain dependencies for tests, developer tools, etc.
+# For development-related dependencies, refer to environment-dev.yml.
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python>=3.14
+  - PyYAML>=6.0.3
+  - pip
+  - pip:
+      - typer==0.21.1

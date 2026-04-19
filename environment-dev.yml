@@ -1,0 +1,18 @@
+# This file defines the additional requirements for a developer working
+# with this project (e.g. for testing or useful development tools).
+# The regular project dependencies are defined in environment.yml
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python>=3.10
+  - pytest>=9.0.2
+  - pytest-cov>=7.0.0
+  - pre-commit>=4.5.1
+  - isort>=6.1.0
+  - jupyterlab>=4.3.5
+  - pip
+  - pip:
+    - black>=25.1.0
