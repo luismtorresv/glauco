@@ -75,3 +75,9 @@ venv*/
 # exclude data from source control (but keep the folder)
 data/*
 !data/.gitkeep
+
+# Marimo
+marimo/_static/
+marimo/_lsp/
+__marimo__
+cache/
