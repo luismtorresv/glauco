@@ -1,3 +1,11 @@
+# /// script
+# requires-python = ">=3.14"
+# dependencies = [
+#     "marimo>=0.23.2",
+#     "osmnx>=2.1.0",
+# ]
+# ///
+
 import marimo
 
 __generated_with = "0.23.1"
