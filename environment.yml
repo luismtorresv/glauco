@@ -7,8 +7,10 @@ channels:
   - defaults
 
 dependencies:
-  - python>=3.14
   - PyYAML>=6.0.3
+  - marimo
+  - osmnx
   - pip
+  - python>=3.14
   - pip:
       - typer==0.21.1
