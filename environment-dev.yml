@@ -14,5 +14,6 @@ dependencies:
   - isort>=6.1.0
   - jupyterlab>=4.3.5
   - pip
+  - ruff
   - pip:
     - black>=25.1.0
