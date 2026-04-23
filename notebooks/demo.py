@@ -9,9 +9,11 @@
 import marimo
 
 __generated_with = "0.23.1"
-app = marimo.App(width="medium", app_title="Demo")
+app = marimo.App(width="full", app_title="Glauco")
 
 with app.setup:
+    import asyncio
+
     import marimo as mo
     import osmnx as ox
 
@@ -19,64 +21,60 @@ with app.setup:
 @app.cell(hide_code=True)
 def _():
     mo.md(r"""
-    # Demo
-    """)
-    return
+    # Glauco 🧜
 
+    Complementary web app to:
 
-@app.cell(hide_code=True)
-def _():
-    mo.md(r"""
-    It's my first time using marimo. I want to create interactive elements first, as I need to know if this would suit my web app needs just fine.
+    Riascos-Goyes, Juan Fernando, et al. 2025. ‘Decoding Street Network Morphologies and Their Correlation to Travel Mode Choice’ https://doi.org/10.48550/arXiv.2507.19648.
+
+    This project was submitted in fulfilment of the special project of my internship semester.
     """)
     return
 
 
 @app.cell
 def _():
-    place = mo.ui.text(placeholder="Search for a city")
-    place
+    place = mo.ui.text(
+        placeholder='e.g. "El Poblado, Medellín" or "Carmen de Viboral, Antioquia"',
+        full_width=True,
+    )
     return (place,)
 
 
 @app.cell
 def _(place):
-    G = ox.graph.graph_from_place(place.value, network_type="drive")
-    G
-    return (G,)
+    if place.value:
+        place_graph = ox.graph.graph_from_place(
+            place.value,
+            network_type="drive",
+        )
+
+        place_gdfs = ox.convert.graph_to_gdfs(
+            place_graph,
+            nodes=False,
+        )
+
+        map = place_gdfs.explore(
+            column="length",
+            cmap="plasma",
+            tiles="cartodbdarkmatter",
+        )
+    return (map,)
 
 
 @app.cell(hide_code=True)
-def _():
-    mo.md(r"""
-    Could this be?
+def _(place):
+    mo.md(rf"""
+    Search for a city or neighbourhood to see its street network.
+
+    {place}
     """)
     return
 
 
 @app.cell
-def _(G):
-    fig, ax = ox.plot.plot_figure_ground(G, color="blue")
-    return
-
-
-@app.cell(hide_code=True)
-def _():
-    mo.md(r"""
-    This is more akin to what I want:
-    """)
-    return
-
-
-@app.cell
-def _(G):
-    ox.plot.plot_graph(G, node_size=0, show=False, edge_color="white")
-    return
-
-
-@app.cell
-def _(G):
-    ox.convert.graph_to_gdfs(G, nodes=False, ).explore(column="length", cmap="plasma", tiles="cartodbdarkmatter")
+def _(map):
+    map
     return
 
 
