@@ -52,7 +52,14 @@ def _(leafmap):
         format="image/png",
         shown=True,
     )
+    _m.add_legend(builtin_legend="NLCD")
     _m
+    return
+
+
+@app.cell
+def _(leafmap):
+    leafmap.common.whiteboxgui()
     return
 
 

@@ -15,6 +15,7 @@ with app.setup:
     import geopandas as gp
     import marimo as mo
     import osmnx as ox
+    import networkx as nx
 
 
 @app.cell(hide_code=True)
@@ -74,6 +75,28 @@ def _(geojson_file, place_query):
 
 
 @app.cell
+def _():
+    _place_graph = ox.graph.graph_from_bbox(
+        [-75.61192, 6.2241, -75.58624, 6.24517],  # this is close to my house
+        network_type="drive",  # also, how do i only allow shapefiles of street networks?
+    )
+    _place_gdfs = ox.convert.graph_to_gdfs(_place_graph, nodes=False)
+    edge_centrality = nx.closeness_centrality(_place_graph)
+
+    ev = [edge_centrality[edge + (0,)] for edge in _place_graph.edges()]
+
+    import matplotlib.colors as colors
+    import matplotlib.cm as cm
+    norm = colors.Normalize(vmin=min(ev)*0.8, vmax=max(ev))
+    cmap = cm.ScalarMappable(norm=norm, cmap=cm.inferno)
+    ec = [cmap.to_rgba(cl) for cl in ev]
+
+    _map = _place_gdfs.explore(cmap=ec, tiles="cartodbdarkmatter")
+    _map
+    return
+
+
+@app.cell
 def _(geojson_file, place_query):
     place_gdfs = None
 
@@ -89,6 +112,7 @@ def _(geojson_file, place_query):
             place_graph,
             nodes=False,
         )
+        nx.betweenness_centrality(place_graph)
     elif geojson_file.value:
         for file in geojson_file.value:
             with open(file.name, "wb") as f:
